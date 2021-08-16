@@ -1,0 +1,1 @@
+GET     /api/message                 com.besafx.cassandra.controller.DriverLocationController.printMessage()
