@@ -1,7 +1,8 @@
 
-## MicroScala System
+## MICRO-SCALA
 
-This Project is an example for using multi-modules 
+This project is an example for using multi-modules: 
+https://www.scala-sbt.org/1.x/docs/Multi-Project.html
 
 To run all test cases
 
