@@ -4,7 +4,7 @@ import MavenResolvers.{elmenusDev, elmenusProduction, elmenusTest}
 Settings.buildSettings
 Settings.scalafmtSettings
 scalaVersion in ThisBuild := "2.13.5"
-name := "cassandra"
+name := "database"
 
 //Maven Publishing
 publishMavenStyle := true
@@ -27,15 +27,4 @@ publishTo := {
     )
 }
 
-libraryDependencies ++= Seq(
-  guice,
-  scalaTestPlus,
-  scalaMockito,
-  playJson,
-  log4J,
-  jodaTime,
-  cats,
-  playSlick,
-  phantom,
-  distanceMatrix
-)
+libraryDependencies ++= Seq(guice, scalaTestPlus, scalaMockito, playSlick, mysql, playSlickEvolutions, slickJodaMapper)

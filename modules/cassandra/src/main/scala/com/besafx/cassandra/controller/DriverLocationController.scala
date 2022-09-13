@@ -8,10 +8,10 @@ import javax.inject._
 import play.api.mvc._
 
 @Singleton
-class DriverLocationController @Inject() (cc: ControllerComponents,
-                                          driverLocationService: DriverLocationService) extends AbstractController(cc) {
+class DriverLocationController @Inject()(cc: ControllerComponents, driverLocationService: DriverLocationService)
+    extends AbstractController(cc) {
 
-  def printMessage() =
+  def printMessage =
     Action { implicit request: Request[AnyContent] =>
       driverLocationService.setDriverLocation(DriverUUID(UUID.randomUUID()), 10, 20)
       Ok("Hello World")

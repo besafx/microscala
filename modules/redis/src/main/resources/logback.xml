@@ -1,0 +1,107 @@
+<!-- https://www.playframework.com/documentation/latest/SettingsLogger -->
+<configuration>
+
+  <conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel" />
+
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>${application.home:-.}/logs/application.log</file>
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} %-5level [%.6thread] %logger - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} %-5coloredLevel [%.6thread] %logger - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="ASYNCFILE" class="ch.qos.logback.classic.AsyncAppender">
+    <appender-ref ref="FILE" />
+  </appender>
+
+  <appender name="ASYNCSTDOUT" class="ch.qos.logback.classic.AsyncAppender">
+    <appender-ref ref="STDOUT" />
+  </appender>
+
+  <variable name="SLICK_LOG_LEVEL" value="${SLICK_LOG_LEVEL:-DEBUG}" />
+  <variable name="KAFKA_LOG_LEVEL" value="${KAFKA_LOG_LEVEL:-DEBUG}" />
+  <variable name="PLAY_LOG_LEVEL" value="${PLAY_LOG_LEVEL:-DEBUG}" />
+  <variable name="APPLICATION_LOG_LEVEL" value="${APPLICATION_LOG_LEVEL:-DEBUG}" />
+  <variable name="ROOT_LOG_LEVEL" value="${ROOT_LOG_LEVEL:-DEBUG}" />
+  <variable name="CASSANDRA_LOG_LEVEL" value="${CASSANDRA_LOG_LEVEL:-DEBUG}" />
+  <variable name="ACTOR_LOG_LEVEL" value="${ACTOR_LOG_LEVEL:-DEBUG}" />
+
+  <logger name="play" level="${PLAY_LOG_LEVEL}" />
+  <logger name="application" level="${APPLICATION_LOG_LEVEL}" />
+
+  <!-- Off these ones as they are annoying, and anyway we manage configuration ourselves -->
+  <logger name="com.avaje.ebean.config.PropertyMapLoader" level="${PLAY_LOG_LEVEL}" />
+  <logger name="com.avaje.ebeaninternal.server.core.XmlConfigLoader" level="${PLAY_LOG_LEVEL}" />
+  <logger name="com.avaje.ebeaninternal.server.lib.BackgroundThread" level="${PLAY_LOG_LEVEL}" />
+  <logger name="com.gargoylesoftware.htmlunit.javascript" level="${PLAY_LOG_LEVEL}" />
+  <logger name="org.apache.kafka" level="${KAFKA_LOG_LEVEL}" />
+  <logger name="slick.compiler" level="${SLICK_LOG_LEVEL}" />
+  <logger name="com.zaxxer.hikari" level="${SLICK_LOG_LEVEL}" />
+  <logger name="com.outworkers.phantom" level="${CASSANDRA_LOG_LEVEL}" />
+  <logger name="akka.stream.Materializer" level="${ACTOR_LOG_LEVEL}" />
+
+
+  <!-- slick logs -->
+  <logger name="scala.slick"                              level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick"                                    level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.basic.BasicBackend.action"          level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.basic.BasicBackend.stream"          level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler"                           level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.QueryCompiler"             level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.QueryCompilerBenchmark"    level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.Inline"                    level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.AssignUniqueSymbols"       level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.InferTypes"                level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.ExpandTables"              level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.EmulateOuterJoins"         level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.ForceOuterBinds"           level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.RemoveMappedTypes"         level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.CreateResultSetMapping"    level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.ExpandSums"                level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.ExpandRecords"             level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.ExpandConditionals"        level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.FlattenProjections"        level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.CreateAggregates"          level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.RewriteJoins"              level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.RemoveTakeDrop"            level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.ResolveZipJoins"           level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.HoistClientOps"            level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.ReorderOperations"         level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.MergeToComprehensions"     level="${SLICK_LOG_LEVEL}" />>
+  <logger name="slick.compiler.OptimizeScalar"            level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.FixRowNumberOrdering"      level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.PruneProjections"          level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.RewriteDistinct"           level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.RewriteBooleans"           level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.SpecializeParameters"      level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.CodeGen"                   level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.RemoveFieldNames"          level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.InsertCompiler"            level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.compiler.VerifyTypes"               level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.jdbc.DriverDataSource"              level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.jdbc.JdbcBackend.statement"         level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.jdbc.JdbcBackend.parameter"         level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.jdbc.JdbcBackend.benchmark"         level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.jdbc.StatementInvoker.result"       level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.jdbc.JdbcModelBuilder"              level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.memory.HeapBackend"                 level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.memory.QueryInterpreter"            level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.relational.ResultConverterCompiler" level="${SLICK_LOG_LEVEL}" />
+  <logger name="slick.util.AsyncExecutor"                 level="${SLICK_LOG_LEVEL}" />
+
+  <!--Application logs-->
+  <logger name="com.elmenus" level="${APPLICATION_LOG_LEVEL}" />
+
+
+  <root level="INFO">
+    <!--<appender-ref ref="ASYNCFILE" />-->
+    <appender-ref ref="ASYNCSTDOUT" />
+  </root>
+
+</configuration>

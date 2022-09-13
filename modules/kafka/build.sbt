@@ -4,7 +4,7 @@ import MavenResolvers.{elmenusDev, elmenusProduction, elmenusTest}
 Settings.buildSettings
 Settings.scalafmtSettings
 scalaVersion in ThisBuild := "2.13.5"
-name := "cassandra"
+name := "kafka"
 
 //Maven Publishing
 publishMavenStyle := true
@@ -36,6 +36,5 @@ libraryDependencies ++= Seq(
   jodaTime,
   cats,
   playSlick,
-  phantom,
-  distanceMatrix
+  phantom
 )

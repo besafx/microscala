@@ -8,7 +8,7 @@ import javax.inject.Singleton
 @Singleton
 class CassandraContext {
 
-  private val config = ConfigFactory.load()
+  private val config            = ConfigFactory.load()
   def CassandraEnabled: Boolean = true
 
   // Cassandra

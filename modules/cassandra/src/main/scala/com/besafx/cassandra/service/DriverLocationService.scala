@@ -11,9 +11,8 @@ import scala.concurrent.Future
 @Singleton
 class DriverLocationService extends DriverLocationDBProvider {
 
-  def setDriverLocation(driverUUID: DriverUUID, lat: Double, lon: Double) = {
+  def setDriverLocation(driverUUID: DriverUUID, lat: Double, lon: Double) =
     database.driverLocation.save(DriverLocation(driverUUID, lat, lon, DateTime.now()))
-  }
 
   def getDriverLastLocation(driverUUID: DriverUUID): Future[_] =
     database.driverLocation.getLastLocation(driverUUID)

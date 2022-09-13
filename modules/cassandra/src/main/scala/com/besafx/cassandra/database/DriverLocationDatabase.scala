@@ -6,8 +6,7 @@ import com.outworkers.phantom.database.DatabaseProvider
 import com.outworkers.phantom.dsl.{Database, _}
 
 // This class will encapsulate all the valid database instances
-class DriverLocationDatabase(override val connector: CassandraConnection)
-  extends Database[DriverLocationDatabase](connector) {
+class DriverLocationDatabase(override val connector: CassandraConnection) extends Database[DriverLocationDatabase](connector) {
   object driverLocation extends DriverLocationEntity with Connector
 }
 
