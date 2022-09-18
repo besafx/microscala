@@ -12,13 +12,15 @@ class TripViolationCheckpointMapper {
     TripViolationCheckpoint(
       TripViolationCheckpointUUID(tripViolationCheckpointDB.uuid),
       tripViolationCheckpointDB.checkDate,
-      tripViolationCheckpointDB.initialEta
+      tripViolationCheckpointDB.initialEta,
+      tripViolationCheckpointDB.violationType
     )
 
   def fromDomain(tripViolationCheckpoint: TripViolationCheckpoint): TripViolationCheckpointDB =
     data.TripViolationCheckpointDB(
       tripViolationCheckpoint.uuid.value.toString,
       tripViolationCheckpoint.checkDate,
-      tripViolationCheckpoint.initialEta
+      tripViolationCheckpoint.initialEta,
+      tripViolationCheckpoint.violationType
     )
 }

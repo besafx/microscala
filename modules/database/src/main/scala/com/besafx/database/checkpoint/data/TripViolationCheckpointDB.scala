@@ -5,5 +5,6 @@ import org.joda.time.DateTime
 case class TripViolationCheckpointDB(
     uuid: String,
     checkDate: DateTime,
-    initialEta: DateTime
+    initialEta: DateTime,
+    violationType: TripViolationTypeEnum
 )

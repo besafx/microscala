@@ -1,5 +1,9 @@
 package com.besafx.database.controller
 
+import java.time.ZoneOffset
+
+import com.besafx.database.checkpoint.data.TripViolationTypeEnum
+import com.besafx.database.checkpoint.data.TripViolationTypeEnum.{FM_Detection, FM_Prevention}
 import com.besafx.database.checkpoint.model.{TripViolationCheckpoint, TripViolationCheckpointUUID}
 import com.besafx.database.checkpoint.repository.TripViolationCheckpointRepository
 import org.joda.time.{DateTime, DateTimeZone, LocalDateTime}
@@ -34,7 +38,8 @@ class TestGeneral extends PlaySpec with GuiceOneAppPerSuite {
             TripViolationCheckpoint(
               TripViolationCheckpointUUID.randomUUID(),
               DateTime.now(),
-              DateTime.now()
+              DateTime.now(),
+              TripViolationTypeEnum.FM_Prevention
             ))
           .map { result =>
             logger.error(result.toString)
@@ -51,12 +56,75 @@ class TestGeneral extends PlaySpec with GuiceOneAppPerSuite {
       assert(repo != null)
 
       val format: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")
-      val dateTime: LocalDateTime   = format.parseLocalDateTime("2022-09-13 18:57:00")
-      val now: DateTime             = dateTime.toDateTime
+      val dateTime: LocalDateTime   = format.parseLocalDateTime("2022-09-13 03:20:00")
+      val now: DateTime             = dateTime.toDateTime(DateTimeZone.UTC)
 
       Await.result(
         repo
-          .getAllByCheckDateEquals(DateTime.now(DateTimeZone.UTC))
+          .getAllByCheckDateEquals(now)
+          .map { result =>
+            logger.error(result.toString)
+          },
+        5.second
+      )
+    }
+  }
+
+  "Test 3" must {
+    "Test 3 Description" in {
+      app.configuration.getOptional[String]("ehcacheplugin") mustBe Some("disabled")
+      val repo: TripViolationCheckpointRepository = app.injector.instanceOf[TripViolationCheckpointRepository]
+      assert(repo != null)
+
+      val format: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")
+      val dateTime: LocalDateTime   = format.parseLocalDateTime("2022-09-14 12:06:00")
+      val now: DateTime             = dateTime.toDateTime(DateTimeZone.UTC)
+
+      Await.result(
+        repo
+          .add(
+            TripViolationCheckpoint(
+              TripViolationCheckpointUUID.randomUUID(),
+              now,
+              now,
+              TripViolationTypeEnum.FM_Detection
+            ))
+          .map { result =>
+            logger.error(result.toString)
+          },
+        5.second
+      )
+
+      Await.result(
+        repo
+          .add(
+            TripViolationCheckpoint(
+              TripViolationCheckpointUUID.randomUUID(),
+              now,
+              now,
+              TripViolationTypeEnum.FM_Prevention
+            ))
+          .map { result =>
+            logger.error(result.toString)
+          },
+        5.second
+      )
+
+      Await.result(
+        repo
+          .getAllByCheckDateEquals(now)
+          .map { result =>
+            logger.error(result.toString)
+          },
+        5.second
+      )
+
+      Await.result(
+        repo
+          .deleteAllByTripAndCheckDateAfter(
+            now.minusMinutes(5),
+            Some(Seq(FM_Prevention, FM_Detection))
+          )
           .map { result =>
             logger.error(result.toString)
           },
